@@ -1,16 +1,21 @@
 class Person < ApplicationRecord
-  belongs_to :user, optional: true
-
+  belongs_to :user, optional: true, strict_loading: true
   has_many :debts, dependent: :destroy
+  has_many :payments, dependent: :destroy
 
   validates :name, :national_id, presence: true
   validates :national_id, uniqueness: true
   validate :cpf_or_cnpj
 
+  def balance
+    # Utilize SQL SUM function to sum up the amounts directly in the database
+    payments.sum(:amount) - debts.sum(:amount)
+  end
+
   private
 
   def cpf_or_cnpj
-    if !CPF.valid?(national_id) && !CNPJ.valid?(national_id)
+    unless CPF.valid?(national_id) || CNPJ.valid?(national_id)
       errors.add :national_id, :invalid
     end
   end

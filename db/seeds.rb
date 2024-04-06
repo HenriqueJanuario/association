@@ -12,6 +12,7 @@ puts "Destroying existing records..."
 User.destroy_all
 Debt.destroy_all
 Person.destroy_all
+Payment.destroy_all
 
 User.create email: 'admin@admin.com', password: '111111'
 
@@ -42,5 +43,9 @@ end
       amount: Faker::Number.between(from: 1, to: 200),
       observation: Faker::Lorem.paragraph
     )
+    person.payments.create(
+      amount: Faker::Number.between(from: 1, to: 200),
+      observation: Faker::Lorem.paragraph
+      )
   end
 end
