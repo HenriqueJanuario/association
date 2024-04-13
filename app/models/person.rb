@@ -1,5 +1,5 @@
 class Person < ApplicationRecord
-  belongs_to :user, optional: true, strict_loading: true
+  belongs_to :user, optional: true
   has_many :debts, dependent: :destroy
   has_many :payments, dependent: :destroy
 
@@ -8,8 +8,10 @@ class Person < ApplicationRecord
   validate :cpf_or_cnpj
 
   def balance
-    # Utilize SQL SUM function to sum up the amounts directly in the database
-    payments.sum(:amount) - debts.sum(:amount)
+    Rails.cache.fetch("person_#{id}_balance") do
+      # Utilize SQL SUM function to sum up the amounts directly in the database
+      payments.sum(:amount) - debts.sum(:amount)
+    end
   end
 
   private
