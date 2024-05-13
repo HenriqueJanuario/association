@@ -53,6 +53,7 @@ gem "devise-bootstrap5"
 gem 'will_paginate', '~> 4.0'
 gem 'faker'
 gem 'rails_performance'
+gem "letter_opener", group: :development
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
