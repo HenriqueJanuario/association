@@ -1,3 +1,6 @@
+require 'sidekiq'
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   resources :payments
   devise_for :users
@@ -10,7 +13,6 @@ Rails.application.routes.draw do
     end
   end
 
-
   get 'reports/balance', to: 'reports#balance'
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -21,4 +23,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root 'dashboard#index'
+
+  mount Sidekiq::Web => '/sidekiq'
+
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  
 end
