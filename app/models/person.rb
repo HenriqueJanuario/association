@@ -7,11 +7,9 @@ class Person < ApplicationRecord
   validates :national_id, uniqueness: true
   validate :cpf_or_cnpj
 
-  def balance
-    Rails.cache.fetch("person_#{id}_balance") do
-      # Utilize SQL SUM function to sum up the amounts directly in the database
-      payments.sum(:amount) - debts.sum(:amount)
-    end
+  def update_balance
+    balance = payments.sum(:amount) - debts.sum(:amount)
+    save!
   end
 
   private

@@ -47,13 +47,13 @@ class Dashboard
 
   def top_person
     Rails.cache.fetch("top_person", expires_in: 1.hour) do
-      sorted_people.last
+      Person.order(:balance).last
     end
   end
 
   def bottom_person
     Rails.cache.fetch("bottom_person", expires_in: 1.hour) do
-      sorted_people.first
+      Person.order(:balance).first
     end
   end
 
@@ -65,10 +65,5 @@ class Dashboard
 
   def active_people_ids
     Person.where(active: true).select(:id)
-  end
-  def sorted_people
-    Person.all.sort_by do |person|
-      person.balance
-    end
   end
 end
