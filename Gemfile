@@ -53,6 +53,7 @@ gem "devise-bootstrap5"
 gem 'will_paginate', '~> 4.0'
 gem 'faker'
 gem 'rails_performance'
+gem 'mysql2'
 
 group :development do
   gem 'letter_opener_web', '~> 3.0'
