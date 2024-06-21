@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_15_005603) do
-  create_table "debts", force: :cascade do |t|
-    t.integer "person_id", null: false
+ActiveRecord::Schema[7.1].define(version: 2024_06_20_235429) do
+  create_table "debts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "person_id", null: false
     t.float "amount"
     t.text "observation"
     t.datetime "created_at", null: false
@@ -20,29 +20,30 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_15_005603) do
     t.index ["person_id"], name: "index_debts_on_person_id"
   end
 
-  create_table "payments", force: :cascade do |t|
-    t.integer "person_id", null: false
+  create_table "payments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "person_id", null: false
     t.float "amount"
     t.date "paid_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "observation"
     t.index ["person_id"], name: "index_payments_on_person_id"
   end
 
-  create_table "people", force: :cascade do |t|
+  create_table "people", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "phone_number"
     t.string "national_id"
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.float "balance"
     t.index ["active"], name: "index_people_on_active"
     t.index ["user_id"], name: "index_people_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
