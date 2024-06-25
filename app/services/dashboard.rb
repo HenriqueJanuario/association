@@ -30,9 +30,9 @@ class Dashboard
   end
 
   def last_debts
-    Rails.cache.fetch("last_debts", expires_in: 1.hour) do
+    # Rails.cache.fetch("last_debts", expires_in: 1.second) do
       Debt.order(created_at: :desc).limit(10).pluck(:id, :amount)
-    end
+    #end
   end
 
   def last_payments

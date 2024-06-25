@@ -8,7 +8,7 @@ class Person < ApplicationRecord
   validate :cpf_or_cnpj
 
   def update_balance
-    balance = payments.sum(:amount) - debts.sum(:amount)
+    self.balance = payments.sum(:amount) - debts.sum(:amount)
     save!
   end
 
