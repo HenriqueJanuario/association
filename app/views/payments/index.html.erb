@@ -2,6 +2,8 @@
 
 <h1>Payments</h1>
 
+<%= will_paginate @payments %>
+
 <div id="payments">
   <% @payments.each do |payment| %>
     <%= render payment %>
@@ -9,6 +11,7 @@
       <%= link_to "Show this payment", payment %>
     </p>
   <% end %>
+   <%= will_paginate @payments %>
 </div>
 
 <%= link_to "New payment", new_payment_path %>
